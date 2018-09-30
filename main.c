@@ -2,20 +2,37 @@
 #include "binaryTree.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char** argv) {
-    struct node *root = NULL;
+    NODE *root = NULL;
+    char ch, buffer[32];
+    int i=0;
+    FILE *f;
     
-    root = insert(root,7);
-    insert(root,3);
-    insert(root,2);
-    insert(root,6);
-    insert(root,4);
-    struct node *l = lca(root,6,2);
+    if((f = fopen("nodeInput.txt","r"))==NULL){
+        printf("File cannot be opened\n");
+        exit(255);
+    }
+    
+    while((ch = fgetc(f)) != EOF){
+        if(ch == ','){
+            int key = atoi(buffer);
+
+            if(root == NULL){
+                root = insert(root,key);
+            }
+            insert(root,key);
+            
+            bzero(buffer,32);
+            i = 0;
+        }else if(ch >= '0' && ch <= '9'){
+            buffer[i] = ch;
+            i++;
+        }
+    }
     structure(root,0);
-    int isThere = checkNode(root,1);
-    
-    printf(" %i The LCA of %i and %i is : %i\n", isThere,6,2,l->key);
+
     return (0);
 }
 
