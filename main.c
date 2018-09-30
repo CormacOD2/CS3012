@@ -37,6 +37,21 @@ struct node* insert(struct node* n, int k){
     return n;
 }
 
+//check if given key is present in the BT, 1 == true , 0 == false
+int checkNode(struct node *root, int k){
+    if(root == NULL) return 0;
+    if(root->key > k) return checkNode(root->left,k);
+    if(root->key < k) return checkNode(root->right,k);
+    return 1;
+}
+
+struct node *lca(struct node *root, int k1, int k2){
+    if(root == NULL) return NULL;
+    if(root->key > k1 && root->key > k2) return lca(root->left, k1,k2);
+    if(root->key < k1 && root->key < k2) return lca(root->right,k1,k2);
+    return root;
+}
+
 //some print formating 
 void printPadding(char c, int n){
     int i;
@@ -62,11 +77,17 @@ void structure(struct node *root, int lvl){
 
 int main(int argc, char** argv) {
     struct node *root = NULL;
-    root = insert(root,5);
+    
+    root = insert(root,7);
     insert(root,3);
     insert(root,2);
     insert(root,6);
+    insert(root,4);
+    struct node *l = lca(root,6,2);
     structure(root,0);
+    int isThere = checkNode(root,1);
+    
+    printf(" %i The LCA of %i and %i is : %i\n", isThere,6,2,l->key);
     return (0);
 }
 
