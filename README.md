@@ -13,8 +13,12 @@ Done :
 - File Input and filtering so only ints will be accepted to build BT.
 - File input error handling.
 - Option to allow for test file to be inputed to test building of BT.
+- Fixed input error for negative ints
+- Fixed input error for specific symbol combinations = will reject any typos,chars,symbols
+- Added option to convert a BT into a BST for larger inputs
 
 ToDo :
-- More error checking + testing.
+- Account for OVERFLOW!
+- write a test input file
 - Allow user to exit at anypoint.
 - Makefile to easily build project.

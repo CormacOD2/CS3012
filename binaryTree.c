@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//node structure for BT
+//------------------ Binary Tree Functions ----------------------------------
 
 //utility function for creating a new node
 struct node *createNode(int k){
@@ -36,6 +36,106 @@ int checkNode(struct node *root, int k){
     return 1;
 }
 
+//Simple recursive function to count the amount of nodes in the BT
+int countNodes(struct node* root) 
+{ 
+    if (root == NULL) return 0; 
+    return countNodes (root->left) + countNodes (root->right) + 1; 
+} 
+
+//------------------ Binary Search tree Conversion --------------------------
+
+//Stores inOrder traversal of the Tree in an array
+void inOrder(struct node* n, int *order, int *i) 
+{ 
+    if (n == NULL) return; 
+    inOrder(n->left, order, i); 
+    order[*i] = n->key; 
+    (*i)++;
+    inOrder(n->right, order, i); 
+} 
+
+//standard merge sort function *DISCLAIMER* copied from my second year
+//assignment
+void merge(int *array, int left, int mid, int right) 
+{ 
+    int i, j, k; 
+    int partitionL = mid - left + 1; 
+    int partitionR =  right - mid; 
+
+    int L[partitionL], R[partitionR]; 
+  
+    for (i = 0; i < partitionL; i++){
+        L[i] = array[left + i]; 
+    } 
+    for (j = 0; j < partitionR; j++){ 
+        R[j] = array[mid + left + j]; 
+    }
+    while (i < partitionL && j < partitionR) 
+    { 
+        if (L[i] <= R[j]) 
+        { 
+            array[k] = L[i]; 
+            i++; 
+        } 
+        else
+        { 
+            array[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+    while (i < partitionL) 
+    { 
+        array[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+    while (j < partitionR) 
+    { 
+        array[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+  
+
+void mergeSort(int *array, int left, int right) 
+{ 
+    if (left < right) 
+    { 
+        int mid = left+(right-left)/2; 
+        mergeSort(array, left, mid); 
+        mergeSort(array, mid+1, right); 
+        merge(array, left, mid, right); 
+    } 
+}
+
+//recursively construct new BST from sorted array and returns the root pointer
+struct node *arrayToBST(int *array, int start, int end) 
+{ 
+    if (start > end) return NULL; 
+    int mid = (start + end)/2; 
+    struct node *root = createNode(array[mid]); 
+    root->left =  arrayToBST(array, start, mid-1); 
+    root->right = arrayToBST(array, mid+1, end); 
+    return root; 
+}
+
+
+struct node *convertToBST(struct node *root){
+    int n = countNodes(root);
+    int array[n];
+    int i = 0;
+    inOrder(root, array, &i);
+    mergeSort(array,0,n-1);
+    root = arrayToBST(array,0,n-1);
+    return root;
+}
+
+//------------------ LCA Assignment -----------------------------------------
+
+//simple recursive function to find LCA
 struct node *lca(struct node *root, int k1, int k2){
     if(root == NULL) return NULL;
     if(root->key > k1 && root->key > k2) return lca(root->left, k1,k2);
@@ -43,6 +143,7 @@ struct node *lca(struct node *root, int k1, int k2){
     return root;
 }
 
+//------------------ Print Functions ---------------------------------------
 //some print formating 
 void printPadding(char c, int n){
     int i;
@@ -64,5 +165,7 @@ void structure(struct node *root, int lvl){
         structure(root->left,lvl+1);
     }
 }
+
+
 
 

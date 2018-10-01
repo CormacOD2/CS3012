@@ -36,24 +36,29 @@ void fileInput(){
     //taking in ints from text file, allow nums to be separated by spaces,commas
     //or tabs. any typos will be discarded(chars,symbols,ect) but not crash.
     //allows for negative nums.
+    int typoBool = 0;
+    
     while((ch = fgetc(f)) != EOF){
         if(ch == ',' || ch == ' '|| ch == '\t'){
+            typoBool = 0;
             int key = atoi(buffer);
             if(root == NULL){
                 root = insert(root,key);
             }
-            
             insert(root,key);
             bzero(buffer,32);
             i = 0;
         }else if(ch == '-' && i == 0){
             buffer[i] = ch;
+            typoBool = 0;
             i++;
-        }else if(ch >= '0' && ch <= '9'){
+        }else if((ch >= '0' && ch <= '9') && typoBool == 0){
             buffer[i] = ch;
+            typoBool = 0;
             i++;
         }else{
             bzero(buffer,32);
+            typoBool = 1;
         }
     }
 }
@@ -91,7 +96,8 @@ void lcaInput(){
 int main(int argc, char** argv) {
     fileInput();
     structure(root,0);
-    lcaInput();
+    root = convertToBST(root);
+    structure(root,0);
     return (0);
 }
 
