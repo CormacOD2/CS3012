@@ -6,6 +6,10 @@
 
 A simple C program that builds a binary tree allowing you to find the lowest common ancestor of two nodes. For purposes of effciency when handling large amounts of data being inputed I gave the option to convert the binary tree into a binary search tree.
 
+## Running the project
+
+Added a simple makefile to run he code. Therefore go the area you downloaded the project using your terminal and enter in "make" followed by a "./lca.exe". Once finished with the project make sure to "make clean".
+
 ## Input
 
 Input for building the binary tree is by text file input. If you wish to change the input you can either edit the "nodeInput.txt" file or by changing the global variable "FILE_NAME" at the top of input.c to your own text file. It will only accept numbers (including negative) separated by any number of commas, spaces or tabs. Any other char/symbol will be rejected, any number attached to those chars will also be rejected e.g (1a,a1,7-7,--7,^6,%6 .. etc).  
