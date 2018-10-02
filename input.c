@@ -93,4 +93,25 @@ void lcaInput(){
     printf("\nThe Lowest Common Ancestor of %i and %i is : %i\n", k1,k2,temp->key);
 }
 
+// a 'boolean' function to check if user wants to convert their BT
+// return 0 == False, 1 == True;
+int bstInput(){
+    int exitBool = 0;
+    int conversionBool = 0;
+    char temp;
+    
+    while(exitBool == 0){
+        printf("\nWould you like to convert your BT into a BST ? Enter '1' yes "
+                "or '2' for no.\n");
+        fflush(stdout);
+        scanf("%s",&temp);
+        if(temp == '1'){
+            conversionBool = 1;
+            return conversionBool;
+        }else if(temp <= '2'){
+            return conversionBool;
+        }
+    }
+}
+
 
