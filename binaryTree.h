@@ -1,6 +1,5 @@
-
-#ifndef binarytree_h
-#define binarytree_h
+#ifndef BINARYTREE_H
+#define BINARYTREE_H
 
     //struct declarations
     struct node{
