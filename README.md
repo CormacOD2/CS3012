@@ -20,4 +20,4 @@ When running the program it will ask if you want to use test input. By selecting
 
 ## Known Issues
 
-My biggest oversite with this project was forgetting overflow issues when inputing from the text file and did not have enough time to fix it before the deadline. 
+My biggest oversite with this project was forgetting overflow issues when inputing from the text file and did not have enough time to fix it before the deadline.
