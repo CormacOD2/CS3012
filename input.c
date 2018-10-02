@@ -1,15 +1,16 @@
 #include "binaryTree.h"
+#include "input.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define ONE ="1";
-#define TWO ="2";
 char *FILE_NAME = "nodeInput.txt";
+int isTest = 0;
 struct node *root = NULL;
 
-void test(struct node *root){
-    int n = countNodes(root);
+// return bool so main can check if inputing Regular or Test inputv
+int boolTest(){
+    return isTest;
 }
 
 struct node *fileInput(){
@@ -30,6 +31,7 @@ struct node *fileInput(){
             exitBool = 1;
         }else if((strcmp(&temp, "2")) == 0){
             fileName = "testNodeInput.txt";
+            isTest =1;
             exitBool = 1;
         }
     }
@@ -67,13 +69,13 @@ struct node *fileInput(){
             typoBool = 1;
         }
     }
-    if(strcmp(&temp, "2") == 0) test(root);
     return root;
 }
 
 //takes console input for LCA , only accepts ints , anything else will prompt
 //the user to enter a correct integer
 void lcaInput(struct node *n){
+    root = n;
     int num,k1,k2;
     int exit = 1;
     char term;

@@ -15,5 +15,6 @@
     struct node *convertToBST(struct node *root);
     void inOrder(struct node* n, int *order, int *i);
     int countNodes(struct node* root);
+    void mergeSort(int *array, int left, int right);
 #endif
 

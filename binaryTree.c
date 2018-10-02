@@ -154,7 +154,6 @@ void printPadding(char c, int n){
 
 //prints the binary tree for debugging purposes
 void structure(struct node *root, int lvl){
-    int i;
     if(root == NULL){
         printPadding('\t',lvl);
         puts("~");
