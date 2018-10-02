@@ -13,6 +13,7 @@
     struct node *lca(struct node *root, int k1, int k2);
     void structure(struct node *root, int lvl);
     struct node *convertToBST(struct node *root);
-    
+    void inOrder(struct node* n, int *order, int *i);
+    int countNodes(struct node* root);
 #endif
 

@@ -10,12 +10,14 @@ int main(int argc, char** argv) {
     struct node *root = NULL;
     root = fileInput();
     structure(root,0);
-    int bool = bstInput();
+    int bool = 0;
+    bool = bstInput();
+    
     if(bool == 1){
         root = convertToBST(root);
         structure(root,0);
     }
-    lcaInput();
+    lcaInput(root);
     return (0);
 }
 

@@ -3,9 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ONE ="1";
+#define TWO ="2";
 char *FILE_NAME = "nodeInput.txt";
 struct node *root = NULL;
 
+void test(struct node *root){
+    int n = countNodes(root);
+}
 
 struct node *fileInput(){
     char ch, buffer[100],temp;
@@ -19,10 +24,11 @@ struct node *fileInput(){
         printf("Enter '1' for default binary tree, or '2' to run test input\n");
         fflush(stdout);
         scanf("%s",&temp);
-        if(temp == '1'){
+        
+        if((strcmp(&temp, "1")) == 0){
             fileName = FILE_NAME;
             exitBool = 1;
-        }else if(temp <= '2'){
+        }else if((strcmp(&temp, "2")) == 0){
             fileName = "testNodeInput.txt";
             exitBool = 1;
         }
@@ -38,7 +44,7 @@ struct node *fileInput(){
     int typoBool = 0;
     
     while((ch = fgetc(f)) != EOF){
-        if(ch == ',' || ch == ' '|| ch == '\t'){
+        if(ch == ',' || ch == ' '|| ch == '\t' || ch == '\n'){
             typoBool = 0;
             int key = atoi(buffer);
             if(root == NULL){
@@ -57,15 +63,17 @@ struct node *fileInput(){
             i++;
         }else{
             bzero(buffer,32);
+            i=0;
             typoBool = 1;
         }
     }
+    if(strcmp(&temp, "2") == 0) test(root);
     return root;
 }
 
 //takes console input for LCA , only accepts ints , anything else will prompt
 //the user to enter a correct integer
-void lcaInput(){
+void lcaInput(struct node *n){
     int num,k1,k2;
     int exit = 1;
     char term;
@@ -73,10 +81,13 @@ void lcaInput(){
     //user if input is incorrect or key on in BT
     while(exit != 3){
         printf("\nFinding Lowest Common Ancestor, please enter key %i : \n",exit);
+        fflush(stdout);
+ 
         if(scanf("%d%c", &num, &term) != 2 || term != '\n'){
             printf("Incorrect input , please try again !\n");
+
         } else {
-            if(checkNode(root,num) == 0){
+            if(checkNode(n,num) == 0){
                 printf("Sorry that key is not in the BT , please try again !\n");
             }else{
                 if(exit == 1) k1 = num;
@@ -84,9 +95,8 @@ void lcaInput(){
                 exit++;
             }
         }
-        
     }
-    struct node *temp = lca(root,k1,k2);
+    struct node *temp = lca(n,k1,k2);
     if(temp == NULL){
         printf("\nThere is no Common Ancestor between %i and %i",k1,k2);
     }
@@ -105,13 +115,14 @@ int bstInput(){
                 "or '2' for no.\n");
         fflush(stdout);
         scanf("%s",&temp);
-        if(temp == '1'){
+        if((strcmp(&temp, "1")) == 0){
             conversionBool = 1;
-            return conversionBool;
-        }else if(temp <= '2'){
-            return conversionBool;
+            exitBool = 1;
+        }else if((strcmp(&temp, "2")) == 0){
+            exitBool = 1;
         }
     }
+    return conversionBool;
 }
 
 
