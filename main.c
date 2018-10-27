@@ -1,4 +1,5 @@
 
+#include "list.h"
 #include "binaryTree.h"
 #include "input.h"
 #include <stdio.h>
@@ -52,6 +53,14 @@ void testFunctions(struct node *root){
 }
 
 int main(int argc, char** argv) {
+    
+    struct list *nodeList = malloc(sizeof(struct list));
+    addNode(nodeList,1);
+    addNode(nodeList,2);
+    printList(nodeList);
+    return 0;
+    
+    /*
     struct node *root = NULL;
     root = fileInput();
     structure(root,0);
@@ -70,5 +79,6 @@ int main(int argc, char** argv) {
         }
     }
     return (0);
+     */
 }
 
