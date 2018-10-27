@@ -1,4 +1,4 @@
-
+#include "dag.h"
 #include "list.h"
 #include "binaryTree.h"
 #include "input.h"
@@ -6,19 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-
-
-// runs through BT confirming it is a BST , True == 1, False == 0
- int isBST(struct node *root, int low, int high) {
-        if(root == NULL) {
-            return 1;
-        }
-        if(root->key <= low || root->key >= high) {
-            return 0;
-        }
-        return isBST(root->left, low, root->key) &&
-               isBST(root->right, root->key, high);
-    }
 
 //testing binaryTree.c functions
 void testFunctions(struct node *root){
@@ -54,12 +41,23 @@ void testFunctions(struct node *root){
 
 int main(int argc, char** argv) {
     
-    struct list *nodeList = malloc(sizeof(struct list));
-    addNode(nodeList,1);
-    addNode(nodeList,2);
-    printList(nodeList);
-    return 0;
+    struct list *dag = createDAG();
+    insertIntoDAG(0,1);
+    insertIntoDAG(0,4);
+    insertIntoDAG(1,2);
+    insertIntoDAG(1,3);
+    insertIntoDAG(4,5);
+    insertIntoDAG(4,6);
+    insertIntoDAG(4,7);
+    insertIntoDAG(4,8);
+    insertIntoDAG(0,8);
     
+    printList(dag);
+    printList(dag->head->adj);
+    
+    //int t = getSize();
+    
+    //printf("size of DAG : %i",t);
     /*
     struct node *root = NULL;
     root = fileInput();

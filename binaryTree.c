@@ -133,6 +133,17 @@ struct node *convertToBST(struct node *root){
     return root;
 }
 
+int isBST(struct node *root, int low, int high) {
+       if(root == NULL) {
+           return 1;
+       }
+       if(root->key <= low || root->key >= high) {
+           return 0;
+       }
+       return isBST(root->left, low, root->key) &&
+              isBST(root->right, root->key, high);
+   }
+
 //------------------ LCA Assignment -----------------------------------------
 
 //simple recursive function to find LCA
