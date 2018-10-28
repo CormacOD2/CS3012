@@ -20,12 +20,11 @@ struct stackNode *push(struct stackNode *head, int val){
 }
 
 struct stackNode *pop(struct stackNode *head){
-    int n;
     if(head == NULL) return NULL;
     struct stackNode *temp = head;
-    n = head->data;
     head = head->next;
     temp->next = NULL;
+    free(temp);
     return head;
 }
 
