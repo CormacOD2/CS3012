@@ -1,4 +1,5 @@
 #include "dag.h"
+#include "stack.h"
 #include "list.h"
 #include "binaryTree.h"
 #include "input.h"
@@ -53,8 +54,20 @@ int main(int argc, char** argv) {
     insertIntoDAG(0,8);
     
     printList(dag);
-    printList(dag->head->adj);
     
+    struct stackNode *stack = createStack();
+    
+    stack = push(stack,0);
+    stack = push(stack,1);
+    stack = push(stack,2);
+    stack = push(stack,3);
+    stack = push(stack,4);
+    stack = push(stack,5);
+    stack = push(stack,6);
+    stack = push(stack,7);
+    stack = push(stack,8);
+    
+    printStack(stack);
     //int t = getSize();
     
     //printf("size of DAG : %i",t);
