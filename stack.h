@@ -1,15 +1,15 @@
 #ifndef STACK_H
 #define STACK_H
 
-    struct stackNode{
+    typedef struct stackNode{
         int data;
         struct stackNode *next;
-    };
+    }stack;
 
     
-    struct stackNode *createStack();
-    struct stackNode *push(struct stackNode *head, int val);
-    struct stackNode *pop(struct stackNode *head);
+    stack *createStack();
+    stack *push(struct stackNode *head, int val);
+    stack *pop(struct stackNode *head);
     void printStack(struct stackNode* head);
     
 #endif 

@@ -2,36 +2,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct stackNode *createStack(){
-    struct stackNode *head = malloc(sizeof(struct stackNode));
+//init stack
+stack *createStack(){
+    stack *head = malloc(sizeof(stack));
     head = NULL;
     return head;
 }
 
-struct stackNode *push(struct stackNode *head, int val){
-    struct stackNode *temp = malloc(sizeof(struct stackNode));
-    if(temp == NULL){
-        return NULL;
-    }
+// push val onto given stack pointer
+stack *push(stack *head, int val){
+    stack *temp = malloc(sizeof(stack));
+    if(temp == NULL) return NULL;
     temp->data = val;
     temp->next = head;
     head = temp;
     return head;
 }
 
-struct stackNode *pop(struct stackNode *head){
+//pop node off top of stack and return it
+stack *pop(stack *head){
     if(head == NULL) return NULL;
-    struct stackNode *temp = head;
     head = head->next;
-    temp->next = NULL;
-    free(temp);
     return head;
 }
 
-void printStack(struct stackNode* head){
-    printf("Stack Print : ");
-    while(head!=NULL){
-        printf(" %i",head->data);
-        head = pop(head);     
+//simple function to print stack
+void printStack(stack* head)
+{
+    stack *current;
+    current = head;
+    if(current!= NULL)
+    {
+        do
+        {
+            printf(" %d",current->data);
+            current = current->next;
+        }
+        while (current!= NULL);
+        printf("\n");
+    }
+    else
+    {
+        printf("The Stack is empty\n");
     }
 }

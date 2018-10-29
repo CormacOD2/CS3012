@@ -13,7 +13,7 @@ int boolTest(){
     return isTest;
 }
 
-struct node *fileInput(){
+node *fileInput(){
     char ch, buffer[100],temp;
     int i=0;
     FILE *f;

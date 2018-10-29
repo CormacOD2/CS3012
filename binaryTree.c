@@ -9,7 +9,7 @@
 //------------------ Binary Tree Functions ----------------------------------
 
 //utility function for creating a new node
-struct node *createNode(int k){
+node *createNode(int k){
     struct node *temp = (struct node *)malloc(sizeof(struct node));
     temp->key = k;
     temp->left = NULL;
@@ -18,7 +18,7 @@ struct node *createNode(int k){
 }
 
 //recursive function that traverses the node to insert at correct location
-struct node* insert(struct node* n, int k){
+node* insert(struct node* n, int k){
     if(n == NULL) return createNode(k);
     if(k < n->key){
         n->left = insert(n->left,k);
@@ -123,7 +123,7 @@ struct node *arrayToBST(int *array, int start, int end)
 }
 
 
-struct node *convertToBST(struct node *root){
+node *convertToBST(struct node *root){
     int n = countNodes(root);
     int array[n];
     int i = 0;
@@ -147,7 +147,7 @@ int isBST(struct node *root, int low, int high) {
 //------------------ LCA Assignment -----------------------------------------
 
 //simple recursive function to find LCA
-struct node *lca(struct node *root, int k1, int k2){
+node *lca(struct node *root, int k1, int k2){
     if(root == NULL) return NULL;
     if(root->key > k1 && root->key > k2) return lca(root->left, k1,k2);
     if(root->key < k1 && root->key < k2) return lca(root->right,k1,k2);

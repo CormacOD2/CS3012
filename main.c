@@ -1,8 +1,7 @@
-#include "dag.h"
 #include "stack.h"
-#include "list.h"
 #include "binaryTree.h"
 #include "input.h"
+#include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,20 +40,20 @@ void testFunctions(struct node *root){
 }
 
 int main(int argc, char** argv) {
+    graph *dir_graph = createGraph(6);
+    addEdge(dir_graph, 5, 0);
+    addEdge(dir_graph, 5, 2);
+    addEdge(dir_graph, 4, 0);
+    addEdge(dir_graph, 4, 1);
+    addEdge(dir_graph, 2, 3);
+    addEdge(dir_graph, 3, 1);
+
     
-    struct list *dag = createDAG();
-    insertIntoDAG(0,1);
-    insertIntoDAG(0,4);
-    insertIntoDAG(1,2);
-    insertIntoDAG(1,3);
-    insertIntoDAG(4,5);
-    insertIntoDAG(4,6);
-    insertIntoDAG(4,7);
-    insertIntoDAG(4,8);
-    insertIntoDAG(0,8);
+    printf("\nDAG : ");
+    displayGraph(dir_graph);
+    topologicalSort(dir_graph);
     
-    printList(dag);
-    
+    /*
     struct stackNode *stack = createStack();
     
     stack = push(stack,0);
@@ -68,10 +67,10 @@ int main(int argc, char** argv) {
     stack = push(stack,8);
     
     printStack(stack);
-    //int t = getSize();
+    int t = getSize();
     
-    //printf("size of DAG : %i",t);
-    /*
+    printf("size of DAG : %i",t);
+    
     struct node *root = NULL;
     root = fileInput();
     structure(root,0);
@@ -88,8 +87,8 @@ int main(int argc, char** argv) {
         while(1){
             lcaInput(root);
         }
-    }
+    }*/
     return (0);
-     */
+     
 }
 
