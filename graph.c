@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "graph.h"
 #include "stack.h"
 
@@ -30,21 +31,21 @@ graph *createGraph(int n)
 }
 
 // add edge to directed graph, from source to destination on given graph
-void addEdge(graph *graph, int source, int destination)
+void addEdge(graph *g, int source, int destination)
 {
     adjnode *newNode = createListNode(destination);
-    newNode->next = graph->adjListArr[source].head;
-    graph->adjListArr[source].head = newNode;
-    graph->adjListArr[source].size++;
+    newNode->next = g->adjListArr[source].head;
+    g->adjListArr[source].head = newNode;
+    g->adjListArr[source].size++;
 }
 
 // print adj list of graph
-void displayGraph(graph *graph)
+void displayGraph(graph *g)
 {
     int i;
-    for (i = 0; i < graph->size; i++)
+    for (i = 0; i < g->size; i++)
     {
-        adjnode *adjPtr = graph->adjListArr[i].head;
+        adjnode *adjPtr = g->adjListArr[i].head;
         printf("\n%d: ", i);
         while (adjPtr)
         {
@@ -88,4 +89,45 @@ void topologicalSort(graph *g){
     printStack(TSortStack);
 }
 
+// given graph, current node, jump array and count will recursive find jumps too
+// connected nodes
+void countJumps(graph *g, int node, int *jumps, int count){
+    int hop = count;
+    adjnode *adjPtr = g->adjListArr[node].head;
+    while(adjPtr){
+        if(count < jumps[adjPtr->v]){
+            jumps[adjPtr->v] = count;
+            countJumps(g,adjPtr->v,jumps,hop+1);
+        }
+        adjPtr = adjPtr->next;
+    }
+}
 
+//will call count nodes on reversed graph and find smallest amount of jumps
+// to a connected node for LCA
+void lcaDAG(graph *g, int child1, int child2){
+ 
+    int child1Count[g->size];
+    int child2Count[g->size];
+    int i;
+    
+    for(i=0;i<g->size;i++){
+        child1Count[i] = INT_MAX;
+        child2Count[i] = INT_MAX;
+    }
+    
+    countJumps(g,child1,child1Count,1);
+    countJumps(g,child2,child2Count,1);
+
+    int lca=INT_MAX;
+    int lcaJumps = INT_MAX;
+    for(i = 0; i < g->size;i++){
+        if((child1Count[i]!= INT_MAX && child2Count[i] != INT_MAX)&&(child1Count[i] + child2Count[i] < lcaJumps)){
+            lcaJumps = child1Count[i]+child2Count[i];
+            lca = i; 
+        }
+    }
+    
+    if(lca == INT_MAX) printf("\n No LCA found between %i and %i !",child1,child2);
+    else printf("LCA of %i and %i is : %i",child1,child2,lca);
+}

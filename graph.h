@@ -12,14 +12,14 @@
     typedef struct list
     {
         int size;          
-        adjnode *head;      
+        adjnode *head;
     }adjList;
 
     //A graph is an array of adjacency lists.
     typedef struct directedGraph
     {
         int size;        
-        adjList *adjListArr;     
+        adjList *adjListArr;
     }graph;
 
     void displayGraph(graph *graph);
@@ -28,7 +28,9 @@
     adjnode *createNode(int v);
     void topologicalSort(graph *g);
     void recurTop(graph *g,int v, int *visited);
-
+    void lcaDAG(graph *g, int child1, int child2);
+    void countJumps(graph *g, int node, int *jumps, int count);
+    
 #endif
 
 

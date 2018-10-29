@@ -40,37 +40,34 @@ void testFunctions(struct node *root){
 }
 
 int main(int argc, char** argv) {
-    graph *dir_graph = createGraph(6);
-    addEdge(dir_graph, 5, 0);
-    addEdge(dir_graph, 5, 2);
-    addEdge(dir_graph, 4, 0);
-    addEdge(dir_graph, 4, 1);
-    addEdge(dir_graph, 2, 3);
-    addEdge(dir_graph, 3, 1);
+    graph *DAG = createGraph(6);
+
+    addEdge(DAG,0,1);
+    addEdge(DAG,0,3);
+    addEdge(DAG,1,2);
+    addEdge(DAG,2,5);
+    addEdge(DAG,3,4);
+    addEdge(DAG,4,5);
+    addEdge(DAG,5,6);
+    
+    graph *reverse=createGraph(6);
+    
+    addEdge(reverse,1,0);
+    addEdge(reverse,3,0);
+    addEdge(reverse,2,1);
+    addEdge(reverse,5,2);
+    addEdge(reverse,4,3);
+    addEdge(reverse,5,4);
+    addEdge(reverse,6,5);
 
     
+    
     printf("\nDAG : ");
-    displayGraph(dir_graph);
-    topologicalSort(dir_graph);
+    displayGraph(DAG);
+    topologicalSort(DAG);
+    lcaDAG(reverse,4,2);
     
     /*
-    struct stackNode *stack = createStack();
-    
-    stack = push(stack,0);
-    stack = push(stack,1);
-    stack = push(stack,2);
-    stack = push(stack,3);
-    stack = push(stack,4);
-    stack = push(stack,5);
-    stack = push(stack,6);
-    stack = push(stack,7);
-    stack = push(stack,8);
-    
-    printStack(stack);
-    int t = getSize();
-    
-    printf("size of DAG : %i",t);
-    
     struct node *root = NULL;
     root = fileInput();
     structure(root,0);
