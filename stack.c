@@ -2,10 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int size;
+
+int getSize(){
+    return size;
+}
+
 //init stack
 stack *createStack(){
     stack *head = malloc(sizeof(stack));
     head = NULL;
+    size = 0;
     return head;
 }
 
@@ -16,6 +23,7 @@ stack *push(stack *head, int val){
     temp->data = val;
     temp->next = head;
     head = temp;
+    size++;
     return head;
 }
 
@@ -23,6 +31,7 @@ stack *push(stack *head, int val){
 stack *pop(stack *head){
     if(head == NULL) return NULL;
     head = head->next;
+    size--;
     return head;
 }
 

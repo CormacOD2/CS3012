@@ -1,42 +1,18 @@
 #include "binaryTree.h"
 #include "input.h"
+#include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-char *FILE_NAME = "nodeInput.txt";
-int isTest = 0;
 struct node *root = NULL;
 
-// return bool so main can check if inputing Regular or Test inputv
-int boolTest(){
-    return isTest;
-}
-
-node *fileInput(){
-    char ch, buffer[100],temp;
+node *fileInput(char *file){
+    char ch, buffer[100];
     int i=0;
     FILE *f;
-    char *fileName ="";
-    int exitBool = 0;
-    
-    //allows user to select either standard build input or test input
-    while(exitBool == 0){
-        printf("Enter '1' for default binary tree, or '2' to run test input\n");
-        fflush(stdout);
-        scanf("%s",&temp);
-        
-        if((strcmp(&temp, "1")) == 0){
-            fileName = FILE_NAME;
-            exitBool = 1;
-        }else if((strcmp(&temp, "2")) == 0){
-            fileName = "testNodeInput.txt";
-            isTest =1;
-            exitBool = 1;
-        }
-    }
-    
-    if((f = fopen(fileName,"r"))==NULL){
+
+    if((f = fopen(file,"r"))==NULL){
         printf("Error : File cannot be opened\n");
         exit(255);
     }
@@ -87,7 +63,6 @@ void lcaInput(struct node *n){
  
         if(scanf("%d%c", &num, &term) != 2 || term != '\n'){
             printf("Incorrect input , please try again !\n");
-
         } else {
             if(checkNode(n,num) == 0){
                 printf("Sorry that key is not in the BT , please try again !\n");
@@ -127,4 +102,68 @@ int bstInput(){
     return conversionBool;
 }
 
+graph *DAGinput(char *file){
 
+    char ch, buffer[100];
+    char temp[32];
+    FILE *f;
+    
+    if((f = fopen(file,"r"))==NULL){
+        printf("Error : File cannot be opened\n");
+        exit(255);
+    }
+
+    // getting first line of file where graph size is
+    int dagSize;
+    if(fgets(temp, 32, f) != NULL) dagSize = atoi(temp);
+    if(temp == NULL || dagSize == 0){
+        printf("Error in DAG file input , please try again.");
+        return NULL;
+    }
+    
+    graph *dag = createGraph(dagSize);
+    graph *reverseDag = createGraph(dagSize);
+    
+    int exitBool = 0;   
+    int node = -1;
+    int adj = -1;
+    int typoBool = 0;
+    int i=0;
+ 
+    // getting two ints per line , ignores whitespace, commas and tabs
+    // if not in correct format will stop and exit error
+    while((ch = fgetc(f)) != EOF || exitBool == 1){
+        if(ch == ',' || ch == ' '|| ch == '\t'){
+            typoBool = 0;
+            
+            if(node == -1){
+                node = atoi(buffer);
+            }else if(node != -1 && adj == -1){
+                adj = atoi(buffer);
+                // add edge to graph , and reverse it for reverse graph
+                // reset node & adj for next input
+                addEdge(dag,node,adj);
+                addEdge(reverseDag,adj,node);
+                node = -1;
+                adj = -1;
+            }else{
+                printf("Error in DAG file input , please try again.");
+                exitBool == 1;
+            }
+            
+            bzero(buffer,32);
+            i = 0;
+        }else if((ch >= '0' && ch <= '9') && typoBool == 0){
+            buffer[i] = ch;
+            typoBool = 0;
+            i++;
+        }else{
+            bzero(buffer,32);
+            i=0;
+            typoBool = 1;
+        }
+    }
+    dag->reverseGraph = reverseDag;
+    return dag;
+ 
+}

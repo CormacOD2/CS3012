@@ -7,6 +7,11 @@
 #include <string.h>
 #include <limits.h>
 
+char *FILE_NAME = "nodeInput.txt";
+char *TEST_FILE_NAME = "testNodeInput.txt";
+char *DAG_FILE_NAME ="DAGinput.txt";
+
+
 //testing binaryTree.c functions
 void testFunctions(struct node *root){
     struct node *temp = NULL;
@@ -39,52 +44,48 @@ void testFunctions(struct node *root){
     structure(bst,0);
 }
 
-int main(int argc, char** argv) {
-    graph *DAG = createGraph(6);
-
-    addEdge(DAG,0,1);
-    addEdge(DAG,0,3);
-    addEdge(DAG,1,2);
-    addEdge(DAG,2,5);
-    addEdge(DAG,3,4);
-    addEdge(DAG,4,5);
-    addEdge(DAG,5,6);
-    
-    graph *reverse=createGraph(6);
-    
-    addEdge(reverse,1,0);
-    addEdge(reverse,3,0);
-    addEdge(reverse,2,1);
-    addEdge(reverse,5,2);
-    addEdge(reverse,4,3);
-    addEdge(reverse,5,4);
-    addEdge(reverse,6,5);
-
-    
-    
-    printf("\nDAG : ");
+int main(int argc, char** argv) {  
+   /* printf("\nDAG : ");
     displayGraph(DAG);
     topologicalSort(DAG);
-    lcaDAG(reverse,4,2);
+    lcaDAG(reverseDAG,4,2);
+    */
     
-    /*
-    struct node *root = NULL;
-    root = fileInput();
-    structure(root,0);
-    if(boolTest() == 1){
-        testFunctions(root);
-    }else{
-        int bool = 0;
-        bool = bstInput();
-
-        if(bool == 1){
-            root = convertToBST(root);
+    node *root = NULL;
+    graph *DAG = NULL;
+    int exitBool = 0;
+    
+    //allows user to select either standard build input or test input
+    while(exitBool == 0){
+        char temp;
+        printf("Please Enter :\n  1 : for default binary tree.\n  2 : for DAG \n  3 : for tests.\n");
+        fflush(stdout);
+        
+        scanf("%s",&temp);
+        exitBool = 1;
+        
+        if(temp == '1'){
+            root = fileInput(FILE_NAME);
             structure(root,0);
+            int bool = 0;
+            bool = bstInput();
+
+            if(bool == 1){
+                root = convertToBST(root);
+                structure(root,0);
+            }
+            while(1){
+                lcaInput(root);
+            }
+        }else if(temp == '2'){
+            DAG = DAGinput(DAG_FILE_NAME);
+            displayGraph(DAG);
+            displayGraph(DAG->reverseGraph);
+        }else if(temp == '3'){
+            root = fileInput(TEST_FILE_NAME);
+            testFunctions(root);
         }
-        while(1){
-            lcaInput(root);
-        }
-    }*/
+    }
     return (0);
      
 }

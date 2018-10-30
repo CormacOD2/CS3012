@@ -10,7 +10,7 @@
 
 //utility function for creating a new node
 node *createNode(int k){
-    struct node *temp = (struct node *)malloc(sizeof(struct node));
+    node *temp = (node *)malloc(sizeof(node));
     temp->key = k;
     temp->left = NULL;
     temp->right = NULL;
@@ -18,7 +18,7 @@ node *createNode(int k){
 }
 
 //recursive function that traverses the node to insert at correct location
-node* insert(struct node* n, int k){
+node* insert(node* n, int k){
     if(n == NULL) return createNode(k);
     if(k < n->key){
         n->left = insert(n->left,k);
@@ -29,7 +29,7 @@ node* insert(struct node* n, int k){
 }
 
 //check if given key is present in the BT, 1 == true , 0 == false
-int checkNode(struct node *root, int k){
+int checkNode(node *root, int k){
     if(root == NULL) return 0;
     if(root->key > k) return checkNode(root->left,k);
     if(root->key < k) return checkNode(root->right,k);
@@ -37,7 +37,7 @@ int checkNode(struct node *root, int k){
 }
 
 //Simple recursive function to count the amount of nodes in the BT
-int countNodes(struct node* root) 
+int countNodes(node* root) 
 { 
     if (root == NULL) return 0; 
     return countNodes (root->left) + countNodes (root->right) + 1; 
@@ -46,7 +46,7 @@ int countNodes(struct node* root)
 //------------------ Binary Search tree Conversion --------------------------
 
 //Stores inOrder traversal of the Tree in an array
-void inOrder(struct node* n, int *order, int *i) 
+void inOrder(node* n, int *order, int *i) 
 { 
     if (n == NULL) return; 
     inOrder(n->left, order, i); 
@@ -112,7 +112,7 @@ void mergeSort(int *array, int left, int right)
 }
 
 //recursively construct new BST from sorted array and returns the root pointer
-struct node *arrayToBST(int *array, int start, int end) 
+node *arrayToBST(int *array, int start, int end) 
 { 
     if (start > end) return NULL; 
     int mid = (start + end)/2; 
@@ -123,7 +123,7 @@ struct node *arrayToBST(int *array, int start, int end)
 }
 
 
-node *convertToBST(struct node *root){
+node *convertToBST(node *root){
     int n = countNodes(root);
     int array[n];
     int i = 0;
@@ -133,7 +133,7 @@ node *convertToBST(struct node *root){
     return root;
 }
 
-int isBST(struct node *root, int low, int high) {
+int isBST(node *root, int low, int high) {
        if(root == NULL) {
            return 1;
        }
@@ -147,7 +147,7 @@ int isBST(struct node *root, int low, int high) {
 //------------------ LCA Assignment -----------------------------------------
 
 //simple recursive function to find LCA
-node *lca(struct node *root, int k1, int k2){
+node *lca(node *root, int k1, int k2){
     if(root == NULL) return NULL;
     if(root->key > k1 && root->key > k2) return lca(root->left, k1,k2);
     if(root->key < k1 && root->key < k2) return lca(root->right,k1,k2);
@@ -164,7 +164,7 @@ void printPadding(char c, int n){
 }
 
 //prints the binary tree for debugging purposes
-void structure(struct node *root, int lvl){
+void structure(node *root, int lvl){
     if(root == NULL){
         printPadding('\t',lvl);
         puts("~");

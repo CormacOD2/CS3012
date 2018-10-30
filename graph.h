@@ -20,6 +20,7 @@
     {
         int size;        
         adjList *adjListArr;
+        struct directedGraph *reverseGraph;
     }graph;
 
     void displayGraph(graph *graph);
