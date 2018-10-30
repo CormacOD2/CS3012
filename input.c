@@ -133,7 +133,7 @@ graph *DAGinput(char *file){
     // getting two ints per line , ignores whitespace, commas and tabs
     // if not in correct format will stop and exit error
     while((ch = fgetc(f)) != EOF || exitBool == 1){
-        if(ch == ',' || ch == ' '|| ch == '\t'){
+        if((ch == ',' || ch == ' '|| ch == '\t' || ch == '\n') && i != 0){
             typoBool = 0;
             
             if(node == -1){
