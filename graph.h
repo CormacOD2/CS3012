@@ -27,7 +27,7 @@
     void addEdge(graph *graph, int src, int dest);
     graph *createGraph(int n);
     adjnode *createNode(int v);
-    void topologicalSort(graph *g);
+    int topologicalSortBool(graph *g);
     void recurTop(graph *g,int v, int *visited);
     void lcaDAG(graph *g, int child1, int child2);
     void countJumps(graph *g, int node, int *jumps, int count);

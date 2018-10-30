@@ -116,7 +116,7 @@ node *arrayToBST(int *array, int start, int end)
 { 
     if (start > end) return NULL; 
     int mid = (start + end)/2; 
-    struct node *root = createNode(array[mid]); 
+    node *root = createNode(array[mid]); 
     root->left =  arrayToBST(array, start, mid-1); 
     root->right = arrayToBST(array, mid+1, end); 
     return root; 

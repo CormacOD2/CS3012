@@ -69,8 +69,8 @@ void recurTop(graph *g,int v, int *visited){
     TSortStack = push(TSortStack,v);
 }
 
-//sorts DAG into topological order by use of stack
-void topologicalSort(graph *g){
+//sorts DAG into topological order by use of stack, return stack if complete , null if cant sort
+int topologicalSortBool(graph *g){
     TSortStack = createStack();
     int visited[g->size];
     int i = 0;
@@ -85,8 +85,14 @@ void topologicalSort(graph *g){
         }
         i++;
     }
-    printf("DAG in topological order : ");
-    printStack(TSortStack);
+    i =0;
+    while(i<g->size){
+        if(visited[i]==0){
+            return 0;
+        }
+        i++;
+    }
+    return 1;
 }
 
 // given graph, current node, jump array and count will recursive find jumps too
@@ -128,6 +134,7 @@ void lcaDAG(graph *g, int child1, int child2){
         }
     }
     
-    if(lca == INT_MAX) printf("\n No LCA found between %i and %i !",child1,child2);
-    else printf("LCA of %i and %i is : %i",child1,child2,lca);
+    if(lca == INT_MAX) printf("\nNo LCA found between %i and %i !\n",child1,child2);
+    else printf("\nLCA of %i and %i is : %i \n",child1,child2,lca);
 }
+

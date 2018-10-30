@@ -1,7 +1,7 @@
 #include "stack.h"
 #include "binaryTree.h"
-#include "input.h"
 #include "graph.h"
+#include "input.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +14,7 @@ char *DAG_FILE_NAME ="DAGinput.txt";
 
 //testing binaryTree.c functions
 void testFunctions(struct node *root){
-    struct node *temp = NULL;
+    node *temp = NULL;
 
     //---------@ TEST : inOrder -----------------
     int inOrderArray[11];
@@ -36,7 +36,7 @@ void testFunctions(struct node *root){
     if(checkNode(root,10) == 0) printf("Testing : checkNode with wrong key : Correct\n");
     if(checkNode(root,1) ==1) printf("Testing : checkNodes with key present in BT : Correct\n");
     //---------@ TEST : ConvertToBST & mergeSort -----------------
-    struct node *bst = root;
+    node *bst = root;
     bst = convertToBST(root);
     int bool = isBST(bst,INT_MAX,INT_MIN);
     if(bool == 0) printf("Testing : convertToBST and mergeSort : Correct\n");
@@ -44,18 +44,11 @@ void testFunctions(struct node *root){
     structure(bst,0);
 }
 
-int main(int argc, char** argv) {  
-   /* printf("\nDAG : ");
-    displayGraph(DAG);
-    topologicalSort(DAG);
-    lcaDAG(reverseDAG,4,2);
-    */
-    
+int main(int argc, char** argv) {      
     node *root = NULL;
     graph *DAG = NULL;
     int exitBool = 0;
     
-    //allows user to select either standard build input or test input
     while(exitBool == 0){
         char temp;
         printf("Please Enter :\n  1 : for default binary tree.\n  2 : for DAG \n  3 : for tests.\n");
@@ -80,7 +73,10 @@ int main(int argc, char** argv) {
         }else if(temp == '2'){
             DAG = DAGinput(DAG_FILE_NAME);
             displayGraph(DAG);
-            displayGraph(DAG->reverseGraph);
+            //displayGraph(DAG->reverseGraph);
+            while(1){
+                lcaDAGInput(DAG);
+            }
         }else if(temp == '3'){
             root = fileInput(TEST_FILE_NAME);
             testFunctions(root);

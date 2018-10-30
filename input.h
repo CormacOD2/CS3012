@@ -1,10 +1,12 @@
 
 #ifndef INPUT_H
 #define INPUT_H
-    struct node *fileInput();
+
+    node *fileInput();
     void lcaInput();
     int bstInput();
-    void testFunctions();
+    struct directedGraph *DAGinput(char *file);
+    void lcaDAGInput(struct directedGraph *g);
 #endif
 
 
